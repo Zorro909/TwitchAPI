@@ -21,7 +21,10 @@ class TwitchAPITest extends TestCase {
 		$this->assertEquals("SecondID", $api->getClientID());
 	}
 
-
+	function testGetStreamer(){
+		$api = new TwitchAPI("testID");
+		$this->assertNotEquals(null, $api->getStreamer("Zorro909HD"));
+	}
 
 
 }
