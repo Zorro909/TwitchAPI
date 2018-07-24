@@ -9,5 +9,6 @@
 	},
 	"require-dev" : {
 		"phpunit/phpunit" : "^7"
-	}
+	},
+	"name" : "zorro909/TwitchAPI"
 }
