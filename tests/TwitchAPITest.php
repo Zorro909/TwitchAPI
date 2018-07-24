@@ -2,16 +2,17 @@
 
 use PHPUnit\Framework\TestCase;
 
+$useClientID = getEnv("clientID");
 class TwitchAPITest extends TestCase {
 
-	function testCanBeCreated(){
-		$this->assertInstanceOf(
+	function testAPICanBeCreated(){
+	    $this->assertInstanceOf(
 			TwitchAPI::class,
-			new TwitchAPI("testID"));
+		    new TwitchAPI("testID"));
 	}
 	
 	function testCanGetClientID(){
-		$api = new TwitchAPI("testID");
+	    $api = new TwitchAPI("testID");
 		$this->assertEquals("testID", $api->getClientID());
 	}
 	
@@ -21,9 +22,18 @@ class TwitchAPITest extends TestCase {
 		$this->assertEquals("SecondID", $api->getClientID());
 	}
 
-	function testGetStreamer(){
-		$api = new TwitchAPI("testID");
-		$this->assertNotEquals(null, $api->getStreamer("Zorro909HD"));
+	function testGetUserByName(){
+		global $useClientID;
+		$api = new TwitchAPI($useClientID);
+		$user = $api->getUserByName("Zorro909HD");
+		$this->assertNotEquals(null, $user);
+		$this->assertInstanceOf(TwitchUser::class, $user);
+	}
+	
+	function testGetUserById(){
+	    global $useClientID;
+	    $api = new TwitchAPI($useClientID);
+	    $this->assertInstanceOf(TwitchUser::class, $api->getUserById("48377768"));
 	}
 
 
