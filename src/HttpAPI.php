@@ -19,3 +19,5 @@ class HttpAPI
         return ($httpcode >= 200 && $httpcode < 300) ? json_decode($data) : false;
     }
 }
+
+?>

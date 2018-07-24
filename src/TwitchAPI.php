@@ -1,8 +1,5 @@
 <?php
 
-include "HttpAPI.php";
-include "TwitchUser.php";
-
 class TwitchAPI{
 	
 	private $clientID;
@@ -24,7 +21,7 @@ class TwitchAPI{
 		$this->clientID = $clientID;
 	}
 	
-	function getUserByName($name):TwitchUser{
+	function getUserByName($name):?TwitchUser{
 	    $data = $this->httpAPI->get($this->clientID, "https://api.twitch.tv/helix/users?login=" . $name);
 	    if(!$data){
 	        return null;
@@ -42,7 +39,7 @@ class TwitchAPI{
 	    return null;
 	}
 	
-	function getUserById($id):TwitchUser{
+	function getUserById($id):?TwitchUser{
 	    $data = $this->httpAPI->get($this->clientID, "https://api.twitch.tv/helix/users?id=" . $id);
 	    if(!$data){
 	        return null;

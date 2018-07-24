@@ -1,5 +1,4 @@
 <?php
-
 use PHPUnit\Framework\TestCase;
 
 $useClientID = getEnv("clientID");

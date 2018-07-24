@@ -1,12 +1,14 @@
-<phpunit>
-  <testsuites>
-    <testsuite name="Tests">
-      <directory>tests</directory>
-    </testsuite>
-  </testsuites>
-  <filter>
-  <whitelist processUncoveredFilesFromWhitelist="true">
-    <directory suffix=".php">src</directory>
-  </whitelist>
-</filter>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
+	bootstrap="vendor/autoload.php">
+	<testsuites>
+		<testsuite name="Tests">
+			<directory suffix="Test.php">tests</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">src</directory>
+		</whitelist>
+	</filter>
 </phpunit>
