@@ -3,22 +3,22 @@
 class TwitchUser
 {
 
-    private $id, $login, $display_name, $type, $broadcaster_type, $description, $profile_image_url;
+    private $id, $login, $displayName, $type, $broadcasterType, $description, $profileImageUrl;
 
-    private $offline_image_url, $view_count;
+    private $offline_image_url, $viewCount;
     public $email;
 
-    function __construct($id, $login, $display_name, $type, $broadcaster_type, 
-        $description, $profile_image_url, $offline_image_url, $view_count)
+    function __construct($id, $login, $displayName, $type, $broadcasterType, 
+        $description, $profileImageUrl, $offlineImageUrl, $viewCount)
     {
         $this->id = $id;
         $this->login = $login;
-        $this->display_name = $display_name;
+        $this->displayName = $displayName;
         $this->type = $type;
-        $this->broadcaster_type = $broadcaster_type;
+        $this->broadcasterType = $broadcasterType;
         $this->description = $description;
-        $this->profile_image_url = $profile_image_url;
-        $this->view_count = $view_count;
+        $this->profileImageUrl = $profileImageUrl;
+        $this->viewCount = $viewCount;
     }
     /**
      * @return mixed
@@ -39,9 +39,9 @@ class TwitchUser
     /**
      * @return mixed
      */
-    public function getDisplay_name()
+    public function getDisplayName()
     {
-        return $this->display_name;
+        return $this->displayName;
     }
 
     /**
@@ -57,7 +57,7 @@ class TwitchUser
      */
     public function getBroadcasterType()
     {
-        return $this->broadcaster_type;
+        return $this->broadcasterType;
     }
 
     /**
@@ -71,15 +71,15 @@ class TwitchUser
     /**
      * @return mixed
      */
-    public function getProfile_image_url()
+    public function getProfileImageUrl()
     {
-        return $this->profile_image_url;
+        return $this->profileImageUrl;
     }
 
     /**
      * @return mixed
      */
-    public function getOffline_image_url()
+    public function getOfflineImageUrl()
     {
         return $this->offline_image_url;
     }
@@ -87,9 +87,9 @@ class TwitchUser
     /**
      * @return mixed
      */
-    public function getView_count()
+    public function getViewCount()
     {
-        return $this->view_count;
+        return $this->viewCount;
     }
 
     /**
