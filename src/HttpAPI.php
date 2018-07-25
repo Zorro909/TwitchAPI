@@ -6,13 +6,17 @@ class HttpAPI
     function __construct()
     {}
 
-    function get($clientID, $url)
+    function get($clientID, $url, $authenticationToken=null)
     {
         $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+        $authentication = array(
             'Client-ID: ' . $clientID
-        ));
-        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, false);
+        );
+        if($authenticationToken!==null){
+            $authentication[1] = "Authentication: Bearer " . $authenticationToken;
+        }
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $authentication);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $data = curl_exec($curl);
         return json_decode($data);
