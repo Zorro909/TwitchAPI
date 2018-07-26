@@ -1,5 +1,5 @@
 <?php
-
+namespace zorro909;
 class TwitchVideo
 {
 

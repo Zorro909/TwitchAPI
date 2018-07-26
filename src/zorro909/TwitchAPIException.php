@@ -1,4 +1,7 @@
 <?php
+namespace zorro909;
+
+use Exception;
 
 class TwitchAPIException extends Exception
 {
