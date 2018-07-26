@@ -38,7 +38,7 @@ class TwitchFollower extends TwitchUser{
      */
     public function getLogin()
     {
-        if(!$this->loaded)loadData();
+        if(!$this->loaded)$this->loadData();
         return $this->login;
     }
     
@@ -47,7 +47,7 @@ class TwitchFollower extends TwitchUser{
      */
     public function getDisplayName()
     {
-        if(!$this->loaded)loadData();
+        if(!$this->loaded)$this->loadData();
         return $this->displayName;
     }
     
@@ -56,7 +56,7 @@ class TwitchFollower extends TwitchUser{
      */
     public function getType()
     {
-        if(!$this->loaded)loadData();
+        if(!$this->loaded)$this->loadData();
         return $this->type;
     }
     
@@ -65,7 +65,7 @@ class TwitchFollower extends TwitchUser{
      */
     public function getBroadcasterType()
     {
-        if(!$this->loaded)loadData();
+        if(!$this->loaded)$this->loadData();
         return $this->broadcasterType;
     }
     
@@ -74,7 +74,7 @@ class TwitchFollower extends TwitchUser{
      */
     public function getDescription()
     {
-        if(!$this->loaded)loadData();
+        if(!$this->loaded)$this->loadData();
         return $this->description;
     }
     
@@ -83,7 +83,7 @@ class TwitchFollower extends TwitchUser{
      */
     public function getProfileImageUrl()
     {
-        if(!$this->loaded)loadData();
+        if(!$this->loaded)$this->loadData();
         return $this->profileImageUrl;
     }
     
@@ -92,7 +92,7 @@ class TwitchFollower extends TwitchUser{
      */
     public function getOfflineImageUrl()
     {
-        if(!$this->loaded)loadData();
+        if(!$this->loaded)$this->loadData();
         return $this->offlineImageUrl;
     }
     
@@ -101,7 +101,7 @@ class TwitchFollower extends TwitchUser{
      */
     public function getViewCount()
     {
-        if(!$this->loaded)loadData();
+        if(!$this->loaded)$this->loadData();
         return $this->viewCount;
     }
     
@@ -110,7 +110,7 @@ class TwitchFollower extends TwitchUser{
      */
     public function getEmail()
     {
-        if(!$this->loaded)loadData();
+        if(!$this->loaded)$this->loadData();
         return $this->email;
     }
     
