@@ -204,9 +204,39 @@ class TwitchAPI {
 
     public function getStreamMetadataByUserLogin($userName, $amount = 20, $language = null, $paginationCursor = null) {}
 
-    public function getFollowersOfStreamer($streamerID, $amount = 20, $paginationCursor = null) {}
+    public function getFollowersOfStreamer($streamerID, $amount = 20, $paginationCursor = null): array {
+        $requestData = $this->httpAPI->get($this->clientID, "https://api.twitch.tv/helix/users/follows?to_id=" . $streamerID . "&first=" . $amount . ($paginationCursor !== null ? "&after=" . $paginationCursor : ""));
+        try {
+            $this->verifyData($requestData);
+        } catch (TwitchAPIException $exc) {
+            echo $exc;
+            throw new TwitchAPIException("getFollowersOfStreamer Request invalid", $exc->getCode(), $exc);
+        }
+        $follows = array();
+        for ($followPointer = 0; $followPointer < sizeof($requestData->data); $followPointer ++) {
+            $follow = $requestData->data[$followPointer];
+            $follows[$followPointer] = new TwitchFollower($follow->from_id, $follow->followed_at, $this);
+        }
+        $follows["pagination"] = $requestData->pagination->cursor;
+        return $follows;
+    }
 
-    public function getFollowsOfUser($userID, $amount = 20, $paginationCursor) {}
+    public function getFollowsOfUser($userID, $amount = 20, $paginationCursor = null): array {
+        $requestData = $this->httpAPI->get($this->clientID, "https://api.twitch.tv/helix/users/follows?from_id=" . $userID . "&first=" . $amount . ($paginationCursor !== null ? "&after=" . $paginationCursor : ""));
+        try {
+            $this->verifyData($requestData);
+        } catch (TwitchAPIException $exc) {
+            echo $exc;
+            throw new TwitchAPIException("getFollowsOfUser Request invalid", $exc->getCode(), $exc);
+        }
+        $follows = array();
+        for ($followPointer = 0; $followPointer < sizeof($requestData->data); $followPointer ++) {
+            $follow = $requestData->data[$followPointer];
+            $follows[$followPointer] = new TwitchFollower($follow->to_id, $follow->followed_at, $this);
+        }
+        $follows["pagination"] = $requestData->pagination->cursor;
+        return $follows;
+    }
 
     public function updateUserDescription($authenticationToken, $description) {}
 
@@ -220,7 +250,7 @@ class TwitchAPI {
 
     private function buildGetArguments(array $arguments): string {
         $line = "";
-        for ($arg = 0; $arg < sizeof($arguments) + 1; $arg = $arg + 2) {
+        for ($arg = 0; $arg < sizeof($arguments) - 1; $arg = $arg + 2) {
             if ($arguments[$arg + 1] === null) continue;
             $line = $line . $arguments[$arg] . "=" . $arguments[$arg + 1] . "&";
         }
