@@ -1,12 +1,14 @@
 <?php
 
-class TwitchAPI {
+class TwitchAPI
+{
 
     private $clientID;
 
     private $httpAPI;
 
-    public function __construct($clientID, $httpAPI = null) {
+    public function __construct($clientID, $httpAPI = null)
+    {
         if ($httpAPI == null) {
             $httpAPI = new HttpAPI();
         }
@@ -14,15 +16,18 @@ class TwitchAPI {
         $this->clientID = $clientID;
     }
 
-    public function getClientID(): string {
+    public function getClientID(): string
+    {
         return $this->clientID;
     }
 
-    public function setClientID($clientID) {
+    public function setClientID($clientID)
+    {
         $this->clientID = $clientID;
     }
 
-    public function getUserByName($name, $authenticationToken = null): TwitchUser {
+    public function getUserByName($name, $authenticationToken = null): TwitchUser
+    {
         $requestData = $this->httpAPI->get($this->clientID, "https://api.twitch.tv/helix/users?login=" . $name, $authenticationToken);
         try {
             $this->verifyData($requestData);
@@ -40,7 +45,8 @@ class TwitchAPI {
         return $user;
     }
 
-    public function getUserById($id, $authenticationToken = null): TwitchUser {
+    public function getUserById($id, $authenticationToken = null): TwitchUser
+    {
         $requestData = $this->httpAPI->get($this->clientID, "https://api.twitch.tv/helix/users?id=" . $id, $authenticationToken);
         try {
             $this->verifyData($requestData);
@@ -58,7 +64,8 @@ class TwitchAPI {
         return $user;
     }
 
-    public function getVideoByVideoID($videoID) {
+    public function getVideoByVideoID($videoID)
+    {
         $requestData = $this->httpAPI->get($this->clientID, "https://api.twitch.tv/helix/videos?id=" . $videoID);
         try {
             $this->verifyData($requestData);
@@ -72,7 +79,8 @@ class TwitchAPI {
         return new TwitchVideo($data->id, $data->user_id, $data->title, $data->description, $data->created_at, $data->published_at, $data->url, $data->thumbnail_url, $data->viewable, $data->view_count, $data->language, $data->type, $data->duration);
     }
 
-    public function getVideosByVideoIDArray(array $videoIDS) {
+    public function getVideosByVideoIDArray(array $videoIDS)
+    {
         $videoIDString = "";
         $vidsCount = 0;
         foreach ($videoIDS as $id) {
@@ -102,7 +110,8 @@ class TwitchAPI {
         return $vids;
     }
 
-    public function getVideosByUserID($userID, $type = "all", $sort = "time", $period = "all", $amount = 20, $paginationCursor = null, $language = null) {
+    public function getVideosByUserID($userID, $type = "all", $sort = "time", $period = "all", $amount = 20, $paginationCursor = null, $language = null)
+    {
         if ($amount > 100) {
             throw new TwitchAPIException("Maximum Amount of Videos that can be returned by one Request is 100");
         }
@@ -124,7 +133,8 @@ class TwitchAPI {
         return $vids;
     }
 
-    public function getVideosByGameID($gameID, $type = "all", $sort = "time", $period = "all", $amount = 20, $paginationCursor = null, $language = null) {
+    public function getVideosByGameID($gameID, $type = "all", $sort = "time", $period = "all", $amount = 20, $paginationCursor = null, $language = null)
+    {
         if ($amount > 100) {
             throw new TwitchAPIException("Maximum Amount of Videos that can be returned by one Request is 100");
         }
@@ -146,65 +156,87 @@ class TwitchAPI {
         return $vids;
     }
 
-    public function getExtensionAnalytics($authenticationToken, $extensionID = null) {}
+    public function getExtensionAnalytics($authenticationToken, $extensionID = null)
+    {}
 
-    public function getGameAnalyticsBuilder($authenticationToken, $gameID = null, $amount = 20, $type = null, $startedAt = null, $endedAt = null) {}
+    public function getGameAnalyticsBuilder($authenticationToken, $gameID = null, $amount = 20, $type = null, $startedAt = null, $endedAt = null)
+    {}
 
-    public function getBitsLeaderboard($authenticationToken, $count = 10, $period = "all", $started_at = null, $user_id = null) {}
+    public function getBitsLeaderboard($authenticationToken, $count = 10, $period = "all", $started_at = null, $user_id = null)
+    {}
 
-    public function createClip($authenticationToken, $broadcaster_id, $has_delay = false) {}
+    public function createClip($authenticationToken, $broadcaster_id, $has_delay = false)
+    {}
 
-    public function getClipByID($clipID) {}
+    public function getClipByID($clipID)
+    {}
 
-    public function getClipsByIDArray(array $clipIDS) {
+    public function getClipsByIDArray(array $clipIDS)
+    {
         if (sizeof($clipIDS) > 100) {
             throw new TwitchAPIException("Maximum ID's that can be specified for getClipsByIDArray is 100!");
         }
     }
 
-    public function getClipsByBroadcasterID($broadcasterID, $amount = 20, $paginationCursor = null) {
+    public function getClipsByBroadcasterID($broadcasterID, $amount = 20, $paginationCursor = null)
+    {
         if ($amount > 100) {
             throw new TwitchAPIException("Maximum ID's that can be specified for getClipsByBroadcasterID is 100!");
         }
     }
 
-    public function getClipsByGameID($gameID, $amount = 20, $paginationCursor = null) {}
+    public function getClipsByGameID($gameID, $amount = 20, $paginationCursor = null)
+    {}
 
-    public function createEntitlementGrantsUploadURL($authenticationToken, $manifestID) {}
+    public function createEntitlementGrantsUploadURL($authenticationToken, $manifestID)
+    {}
 
-    public function getGame($id) {}
+    public function getGame($id)
+    {}
 
-    public function getGamesByIDs(array $ids) {
+    public function getGamesByIDs(array $ids)
+    {
         if (sizeof($ids) > 100) {
             throw new TwitchAPIException("A Maximum of 100 Games can be returned by one Request");
         }
     }
 
-    public function getGamesByNames(array $names) {
+    public function getGamesByNames(array $names)
+    {
         if (sizeof($names) > 100) {
             throw new TwitchAPIException("A Maximum of 100 Games can be returned by one Request");
         }
     }
 
-    public function getTopGames($amount = 20, $paginationCursor = null) {}
+    public function getTopGames($amount = 20, $paginationCursor = null)
+    {}
 
-    public function getStreamsByCommunityID($communityID, $amount = 20, $language = null, $paginationCursor = null) {}
+    public function getStreamsByCommunityID($communityID, $amount = 20, $language = null, $paginationCursor = null)
+    {}
 
-    public function getStreamsByGameID($gameID, $amount = 20, $language = null, $paginationCursor = null) {}
+    public function getStreamsByGameID($gameID, $amount = 20, $language = null, $paginationCursor = null)
+    {}
 
-    public function getStreamsByUserID($userID, $amount = 20, $language = null, $paginationCursor = null) {}
+    public function getStreamsByUserID($userID, $amount = 20, $language = null, $paginationCursor = null)
+    {}
 
-    public function getStreamsByUserLogin($userName, $amount = 20, $language = null, $paginationCursor = null) {}
+    public function getStreamsByUserLogin($userName, $amount = 20, $language = null, $paginationCursor = null)
+    {}
 
-    public function getStreamMetadataByCommunityID($communityID, $amount = 20, $language = null, $paginationCursor = null) {}
+    public function getStreamMetadataByCommunityID($communityID, $amount = 20, $language = null, $paginationCursor = null)
+    {}
 
-    public function getStreamMetadataByGameID($gameID, $amount = 20, $language = null, $paginationCursor = null) {}
+    public function getStreamMetadataByGameID($gameID, $amount = 20, $language = null, $paginationCursor = null)
+    {}
 
-    public function getStreamMetadataByUserID($userID, $amount = 20, $language = null, $paginationCursor = null) {}
+    public function getStreamMetadataByUserID($userID, $amount = 20, $language = null, $paginationCursor = null)
+    {}
 
-    public function getStreamMetadataByUserLogin($userName, $amount = 20, $language = null, $paginationCursor = null) {}
+    public function getStreamMetadataByUserLogin($userName, $amount = 20, $language = null, $paginationCursor = null)
+    {}
 
-    public function getFollowersOfStreamer($streamerID, $amount = 20, $paginationCursor = null): array {
+    public function getFollowersOfStreamer($streamerID, $amount = 20, $paginationCursor = null): array
+    {
         $requestData = $this->httpAPI->get($this->clientID, "https://api.twitch.tv/helix/users/follows?to_id=" . $streamerID . "&first=" . $amount . ($paginationCursor !== null ? "&after=" . $paginationCursor : ""));
         try {
             $this->verifyData($requestData);
@@ -221,7 +253,8 @@ class TwitchAPI {
         return $follows;
     }
 
-    public function getFollowsOfUser($userID, $amount = 20, $paginationCursor = null): array {
+    public function getFollowsOfUser($userID, $amount = 20, $paginationCursor = null): array
+    {
         $requestData = $this->httpAPI->get($this->clientID, "https://api.twitch.tv/helix/users/follows?from_id=" . $userID . "&first=" . $amount . ($paginationCursor !== null ? "&after=" . $paginationCursor : ""));
         try {
             $this->verifyData($requestData);
@@ -238,26 +271,34 @@ class TwitchAPI {
         return $follows;
     }
 
-    public function updateUserDescription($authenticationToken, $description) {}
+    public function updateUserDescription($authenticationToken, $description)
+    {}
 
-    public function getUserExtensions($authenticationToken) {}
+    public function getUserExtensions($authenticationToken)
+    {}
 
-    public function getActiveUserExtensionsByAuthenticationToken($authenticationToken) {}
+    public function getActiveUserExtensionsByAuthenticationToken($authenticationToken)
+    {}
 
-    public function getActiveUserExtensionsByUserID($userID) {}
+    public function getActiveUserExtensionsByUserID($userID)
+    {}
 
-    public function updateUserExtensions($authenticationToken, $extensions) {}
+    public function updateUserExtensions($authenticationToken, $extensions)
+    {}
 
-    private function buildGetArguments(array $arguments): string {
+    private function buildGetArguments(array $arguments): string
+    {
         $line = "";
         for ($arg = 0; $arg < sizeof($arguments) - 1; $arg = $arg + 2) {
-            if ($arguments[$arg + 1] === null) continue;
+            if ($arguments[$arg + 1] === null)
+                continue;
             $line = $line . $arguments[$arg] . "=" . $arguments[$arg + 1] . "&";
         }
         return $line;
     }
 
-    private function verifyData($data): bool {
+    private function verifyData($data): bool
+    {
         if (isset($data->error)) {
             throw new TwitchAPIException("Invalid Request: Error " . $data->error . " (" . $data->status . ")\nMessage: " . $data->message);
         }
