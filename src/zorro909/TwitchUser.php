@@ -1,5 +1,6 @@
 <?php
 namespace zorro909;
+
 class TwitchUser
 {
 
@@ -101,5 +102,3 @@ class TwitchUser
     }
 
 }
-
-?>

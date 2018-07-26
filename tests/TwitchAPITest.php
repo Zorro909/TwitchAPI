@@ -1,26 +1,32 @@
 <?php
-use PHPUnit\Framework\TestCase;
+namespace zorro909;
 
+use PHPUnit\Framework\TestCase;
 $useClientID = getEnv("clientID");
 
-class TwitchAPITest extends TestCase {
+class TwitchAPITest extends TestCase
+{
 
-    function testAPICanBeCreated() {
+    function testAPICanBeCreated()
+    {
         $this->assertInstanceOf(TwitchAPI::class, new TwitchAPI("testID"));
     }
 
-    function testCanGetClientID() {
+    function testCanGetClientID()
+    {
         $api = new TwitchAPI("testID");
         $this->assertEquals("testID", $api->getClientID());
     }
 
-    function testCanSetClientID() {
+    function testCanSetClientID()
+    {
         $api = new TwitchAPI("testID");
         $api->setClientID("SecondID");
         $this->assertEquals("SecondID", $api->getClientID());
     }
 
-    function testGetUserByName() {
+    function testGetUserByName()
+    {
         global $useClientID;
         $api = new TwitchAPI($useClientID);
         $user = $api->getUserByName("Zorro909HD");
@@ -28,7 +34,8 @@ class TwitchAPITest extends TestCase {
         $this->assertInstanceOf(TwitchUser::class, $user);
     }
 
-    function testGetUserById() {
+    function testGetUserById()
+    {
         global $useClientID;
         $api = new TwitchAPI($useClientID);
         $user = $api->getUserById("48377768");
@@ -36,7 +43,8 @@ class TwitchAPITest extends TestCase {
         $this->assertInstanceOf(TwitchUser::class, $user);
     }
 
-    function testGetVideoByVideoID() {
+    function testGetVideoByVideoID()
+    {
         global $useClientID;
         $api = new TwitchAPI($useClientID);
         $video = $api->getVideoByVideoID("286622904");
@@ -44,7 +52,8 @@ class TwitchAPITest extends TestCase {
         $this->assertInstanceOf(TwitchVideo::class, $video);
     }
 
-    function testGetVideosByVideoIDArray() {
+    function testGetVideosByVideoIDArray()
+    {
         global $useClientID;
         $api = new TwitchAPI($useClientID);
         $videos = $api->getVideosByVideoIDArray(array("286622904","286622905"));
@@ -54,7 +63,8 @@ class TwitchAPITest extends TestCase {
         $this->assertInstanceOf(TwitchVideo::class, $videos[1]);
     }
 
-    function testGetVideosByUserID($pagination = null) {
+    function testGetVideosByUserID($pagination = null)
+    {
         global $useClientID;
         $api = new TwitchAPI($useClientID);
         $videos = $api->getVideosByUserID("47499841", "all", "time", "all", 2, $pagination);
@@ -68,7 +78,8 @@ class TwitchAPITest extends TestCase {
         }
     }
 
-    function testGetVideosByGameID($pagination = null) {
+    function testGetVideosByGameID($pagination = null)
+    {
         global $useClientID;
         $api = new TwitchAPI($useClientID);
         $videos = $api->getVideosByGameID("33214", "all", "time", "all", 2, $pagination);
@@ -82,91 +93,113 @@ class TwitchAPITest extends TestCase {
         }
     }
 
-    function testGetExtensionAnalytics() {
+    function testGetExtensionAnalytics()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetGameAnalyticsBuilder() {
+    function testGetGameAnalyticsBuilder()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetBitsLeaderboard() {
+    function testGetBitsLeaderboard()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testCreateClip() {
+    function testCreateClip()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetClipByID() {
+    function testGetClipByID()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetClipsByIDArray() {
+    function testGetClipsByIDArray()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetClipsByBroadcasterID() {
+    function testGetClipsByBroadcasterID()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetClipsByGameID() {
+    function testGetClipsByGameID()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetCreateEntitlementGrantsUploadURL() {
+    function testGetCreateEntitlementGrantsUploadURL()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetGame() {
+    function testGetGame()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetGamesByIDs() {
+    function testGetGamesByIDs()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetGamesByNames() {
+    function testGetGamesByNames()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetTopGames() {
+    function testGetTopGames()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetStreamsByCommunityID() {
+    function testGetStreamsByCommunityID()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetStreamsByGameID() {
+    function testGetStreamsByGameID()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetStreamsByUserID() {
+    function testGetStreamsByUserID()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetStreamsByUserLogin() {
+    function testGetStreamsByUserLogin()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetStreamMetadataByCommunityID() {
+    function testGetStreamMetadataByCommunityID()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetStreamMetadataByGameID() {
+    function testGetStreamMetadataByGameID()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetStreamMetadataByUserID() {
+    function testGetStreamMetadataByUserID()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetStreamMetadataByUserLogin() {
+    function testGetStreamMetadataByUserLogin()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetFollowersOfStreamer($paginationCursor = null) {
+    function testGetFollowersOfStreamer($paginationCursor = null)
+    {
         global $useClientID;
         $api = new TwitchAPI($useClientID);
         $follows = $api->getFollowersOfStreamer("47499841", 20, $paginationCursor);
@@ -179,7 +212,8 @@ class TwitchAPITest extends TestCase {
         }
     }
 
-    function testGetFollowsOfUser($paginationCursor = null) {
+    function testGetFollowsOfUser($paginationCursor = null)
+    {
         global $useClientID;
         $api = new TwitchAPI($useClientID);
         $follows = $api->getFollowsOfUser("47499841", 20, $paginationCursor);
@@ -192,23 +226,28 @@ class TwitchAPITest extends TestCase {
         }
     }
 
-    function testUpdateUserDescription() {
+    function testUpdateUserDescription()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetUserExtensions() {
+    function testGetUserExtensions()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetActiveUserExtensionsByAuthenticationToken() {
+    function testGetActiveUserExtensionsByAuthenticationToken()
+    {
         $this->fail("Test not implemented");
     }
 
-    function testGetActiveUserExtensionsByUserID() {
+    function testGetActiveUserExtensionsByUserID()
+    {
         $this->fail("Test not implemented");
     }
 
-    function updateUserExtensions() {
+    function updateUserExtensions()
+    {
         $this->fail("Test not implemented");
     }
 }
