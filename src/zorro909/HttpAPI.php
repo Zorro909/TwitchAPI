@@ -16,7 +16,7 @@ class HttpAPI
         $this->ratelimitRemaining--;
         if($this->ratelimitRemaining<0&&$this->ratelimitReset>time()){
             echo "Ratelimit ran out\nWaiting for " . ($this->ratelimitReset-time()+2) . "seconds\n";
-            sleep($this->ratelimitReset-time()+2);
+            return null;
         }
         
         $curl = curl_init($url);
@@ -48,10 +48,25 @@ class HttpAPI
         }
         );
         $data = curl_exec($curl);
+        $json = json_decode($data);
         $this->ratelimitRemaining = $headers["ratelimit-remaining"][0];
         $this->rateLimit = $headers["ratelimit-limit"][0];
         $this->ratelimitReset = $headers["ratelimit-reset"][0];
-        return json_decode($data);
+        return $json;
+    }
+    
+    function getRateLimitRemaining(){
+        return $this->ratelimitRemaining;
+    }
+    
+    function getRateLimitResetTime(){
+        return $this->ratelimitReset;        
+    }
+    
+    function waitForRateLimit(){
+        if($this->getRateLimitRemaining()<=0&&time()-$this->getRateLimitResetTime()>0){
+            sleep(time()-$this->getRateLimitResetTime());
+        }
     }
 }
 

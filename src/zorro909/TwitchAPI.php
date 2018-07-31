@@ -396,7 +396,7 @@ class TwitchAPI
             throw new TwitchAPIException(
                 "Invalid Request: Error " . $data->error . " (" . $data->status . ")\nMessage: " . $data->message);
         }
-        if ($data->data === null) {
+        if ($data==null||!isset($data->data)) {
             throw new TwitchAPIException("Invalid Request: No Error was given!");
         }
         return true;

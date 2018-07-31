@@ -1,9 +1,15 @@
 <?php
-namespace zorro909;
-
 use PHPUnit\Framework\TestCase;
+use zorro909\TwitchAPI;
+use zorro909\TwitchFollower;
+use zorro909\TwitchGame;
+use zorro909\TwitchUser;
+use zorro909\TwitchVideo;
+include("HttpAPIRecorder.php");
+include("HttpAPIOffline.php");
+
 $useClientID = getEnv("clientID");
-$httpAPI = new HttpAPI();
+$httpAPI = new HttpAPIOffline();
 
 class TwitchAPITest extends TestCase
 {
