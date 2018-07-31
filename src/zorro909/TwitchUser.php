@@ -6,7 +6,7 @@ class TwitchUser
 
     private $id, $login, $displayName, $type, $broadcasterType, $description, $profileImageUrl;
 
-    private $offline_image_url, $viewCount;
+    private $offlineImageUrl, $viewCount;
     public $email;
 
     function __construct($id, $login, $displayName, $type, $broadcasterType, 
@@ -82,7 +82,7 @@ class TwitchUser
      */
     public function getOfflineImageUrl()
     {
-        return $this->offline_image_url;
+        return $this->offlineImageUrl;
     }
 
     /**

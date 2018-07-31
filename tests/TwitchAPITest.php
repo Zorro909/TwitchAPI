@@ -5,8 +5,8 @@ use zorro909\TwitchFollower;
 use zorro909\TwitchGame;
 use zorro909\TwitchUser;
 use zorro909\TwitchVideo;
-include("HttpAPIRecorder.php");
-include("HttpAPIOffline.php");
+include ("HttpAPIRecorder.php");
+include ("HttpAPIOffline.php");
 
 $useClientID = getEnv("clientID");
 $httpAPI = new HttpAPIOffline();
@@ -35,6 +35,19 @@ class TwitchAPITest extends TestCase
         $user = $api->getUserByName("Zorro909HD");
         $this->assertNotEquals(null, $user);
         $this->assertInstanceOf(TwitchUser::class, $user);
+
+        $this->assertEquals("48377768", $user->getId());
+        $this->assertEquals("zorro909hd", $user->getLogin());
+        $this->assertEquals("Zorro909HD", $user->getDisplayName());
+        $this->assertEquals("", $user->getType());
+        $this->assertEquals("", $user->getBroadcasterType());
+        $this->assertEquals("", $user->getDescription());
+        $this->assertEquals(
+            "https://static-cdn.jtvnw.net/jtv_user_pictures/zorro909hd-profile_image-828810cb0f72710d-300x300.jpeg",
+            $user->getProfileImageUrl());
+        $this->assertEquals("", $user->getOfflineImageUrl());
+        $this->assertEquals("65", $user->getViewCount());
+        $this->assertEquals(null, $user->getEmail());
     }
 
     function testGetUserById() {
@@ -134,6 +147,7 @@ class TwitchAPITest extends TestCase
         $this->assertNotEquals(null, $game);
         $this->assertInstanceOf(TwitchGame::class, $game);
         $this->assertEquals("Fortnite", $game->getGameName());
+        $this->assertTrue(is_string($game->getBoxArtUrl()));
     }
 
     function testGetGameByName() {
@@ -196,6 +210,23 @@ class TwitchAPITest extends TestCase
         $this->assertNotEquals(null, $follows);
         $this->assertInstanceOf(TwitchFollower::class, $follows[0]);
         $this->assertInstanceOf(TwitchFollower::class, $follows[1]);
+
+        if ($paginationCursor == null) {
+            $this->assertEquals("2018-07-30T16:13:09Z", $follows[0]->getFollowedAt());
+            $this->assertEquals("130710140", $follows[0]->getId());
+            $this->assertEquals("captainigermany", $follows[0]->getLogin());
+            $this->assertEquals("CaptainIGermany", $follows[0]->getDisplayName());
+            $this->assertEquals("", $follows[0]->getType());
+            $this->assertEquals("", $follows[0]->getBroadcasterType());
+            $this->assertEquals("", $follows[0]->getDescription());
+            $this->assertEquals(
+                "https://static-cdn.jtvnw.net/jtv_user_pictures/161e4aed-e6be-4e44-b419-c281f46db833-profile_image-300x300.png",
+                $follows[0]->getProfileImageUrl());
+            $this->assertEquals("", $follows[0]->getOfflineImageUrl());
+            $this->assertEquals("315", $follows[0]->getViewCount());
+            $this->assertEquals(null, $follows[0]->getEmail());
+        }
+
         $this->assertTrue(is_string($follows["pagination"]));
         if ($paginationCursor == null) {
             $this->testGetFollowersOfStreamer($follows["pagination"]);

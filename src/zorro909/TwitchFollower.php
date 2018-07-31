@@ -12,7 +12,7 @@ class TwitchFollower extends TwitchUser
 
     public function __construct($userID, $followedAt, $api)
     {
-        $this->id = $userID;
+        parent::__construct($userID, null, null, null, null, null, null, null, null);
         $this->followedAt = $followedAt;
         $this->api = $api;
     }
@@ -22,7 +22,7 @@ class TwitchFollower extends TwitchUser
         if ($this->loaded) {
             return;
         }
-        $user = $this->api->getUserById($this->id);
+        $user = $this->api->getUserById($this->getId());
         $this->login = $user->getLogin();
         $this->displayName = $user->getDisplayName();
         $this->type = $user->getType();
